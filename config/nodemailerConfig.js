@@ -1,13 +1,23 @@
-import nodemailer from 'nodemailer';  // Importing nodemailer for email sending functionality
-import dotenv from 'dotenv';          // Importing dotenv to load environment variables
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
 
-dotenv.config();  // Loading environment variables from .env file
+dotenv.config();
 
-// Creating a transporter using nodemailer
 export const transporter = nodemailer.createTransport({
-    service: 'gmail',  // Using Gmail as the email service provider
-    auth: {
-        user: process.env.EMAIL,     // Fetching email address from environment variables
-        pass: process.env.PASSWORD   // Fetching email password from environment variables
-    }
+  host: "smtp.gmail.com",
+  port: 587,          // ép dùng 587
+  secure: false,      // false = STARTTLS (TLS)
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD, // App Password 16 ký tự từ Google
+  },
+});
+
+// Test connection khi khởi động
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("SMTP connection error:", error);
+  } else {
+    console.log("SMTP server ready to take messages ✅");
+  }
 });

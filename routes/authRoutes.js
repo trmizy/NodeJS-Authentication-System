@@ -9,7 +9,7 @@ const authRouter = express.Router(); // Creating an instance of express Router f
 const googleSignIn = new googleSignInController(); // Creating an instance of GoogleSignInController
 
 // OAuth2 login with Google
-authRouter.get("/google", passport.authenticate('google', { scope: ['email', 'profile'] }));
+authRouter.get("/google", passport.authenticate('google', { scope: ['email', 'profile'], prompt: "select_account",}));
 
 // Google OAuth2 callback
 authRouter.get("/google/callback",
